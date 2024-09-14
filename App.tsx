@@ -71,6 +71,7 @@ interface Question {
   question: string;
   options: string[];
   answer: string;
+  explanation: string;
 }
 
 export default function App() {
@@ -84,6 +85,7 @@ export default function App() {
     try {
       const data = await fetchQuestions();
       console.log('setting questions', data);
+      console.log(data[0].explanation)
       setQuestions(data);
     } catch (error) {
       console.error('Erro ao carregar as questões:', error);
@@ -104,6 +106,7 @@ export default function App() {
             answer={item.answer}
             question={item.question}
             options={item.options}
+            explanation={item.explanation}
           />
         )}
       />
