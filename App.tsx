@@ -95,7 +95,7 @@ export default function App() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.heading}>Questões</Text>
+        <Text style={styles.heading}>Simulado AWS</Text>
       </View>
       <FlatList
         data={questions}
