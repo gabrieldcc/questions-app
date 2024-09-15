@@ -1,68 +1,69 @@
-// import { Box, Text, VStack, Radio, Button } from "native-base"
-// import { useState } from "react";
 
-// interface Question {
-//   _id?: string;
-//   question: string;
-//   options: string[];
-//   answer: string;
-// }
+// // import { Box, Text, VStack, Radio, Button } from "native-base"
+// // import { useState } from "react";
 
-// export default function CardQuestion({answer, question, options}: Question) {
+// // interface Question {
+// //   _id?: string;
+// //   question: string;
+// //   options: string[];
+// //   answer: string;
+// // }
 
-//   const [selectedAnswer, setSelectedAnswer] = useState<string>('');
-//   const [isCorrect, setIsCorrect] = useState<boolean | null>(null); 
+// // export default function CardQuestion({answer, question, options}: Question) {
 
-
-//   function checkAnswer() {
-//     if(selectedAnswer == answer) {
-//       setIsCorrect(true)
-//       console.log('Resposta correta')
-//     } else {
-//       setIsCorrect(false)
-//       console.log('Resposta incorreta')
-//     }
-//   }
-
-//     // Reset o estado do botão quando uma nova opção é selecionada
-//     function handleOptionChange(value: string) {
-//       setSelectedAnswer(value);
-//       setIsCorrect(null); // Reseta o botão ao estado padrão
-//     }
+// //   const [selectedAnswer, setSelectedAnswer] = useState<string>('');
+// //   const [isCorrect, setIsCorrect] = useState<boolean | null>(null); 
 
 
-//     return (
-//         <Box
-//         p={4}
-//         mb={3}
-//         bg="#f9f9f9"
-//         borderRadius={5}
-//         shadow={2}
-//         w="100%"
-//       >
-//         <Text fontSize="lg" fontWeight="bold">{question}</Text>
-//         <VStack mt={4} space={2}>
-//         <Radio.Group
-//           name="questionOptions"
-//           value={selectedAnswer}
-//           onChange={(handleOptionChange)}
-//         >
-//           {options.map((option, index) => (
-//             <Radio key={index} value={option} my={1}>
-//               {option}
-//             </Radio>
-//           ))}
-//         </Radio.Group>
-//       </VStack>
-//       <Button 
-//       mt={4} 
-//       onPress={checkAnswer}
-//       height={12}
-//       backgroundColor={ isCorrect == null ? 'blue.500' : isCorrect ? "green.500" : "red.500"   }
-//       > {isCorrect == null ? 'Conferir' : isCorrect ? "Correto" : "Incorreto"} </Button>
-//       </Box>
-//     )
-// }
+// //   function checkAnswer() {
+// //     if(selectedAnswer == answer) {
+// //       setIsCorrect(true)
+// //       console.log('Resposta correta')
+// //     } else {
+// //       setIsCorrect(false)
+// //       console.log('Resposta incorreta')
+// //     }
+// //   }
+
+// //     // Reset o estado do botão quando uma nova opção é selecionada
+// //     function handleOptionChange(value: string) {
+// //       setSelectedAnswer(value);
+// //       setIsCorrect(null); // Reseta o botão ao estado padrão
+// //     }
+
+
+// //     return (
+// //         <Box
+// //         p={4}
+// //         mb={3}
+// //         bg="#f9f9f9"
+// //         borderRadius={5}
+// //         shadow={2}
+// //         w="100%"
+// //       >
+// //         <Text fontSize="lg" fontWeight="bold">{question}</Text>
+// //         <VStack mt={4} space={2}>
+// //         <Radio.Group
+// //           name="questionOptions"
+// //           value={selectedAnswer}
+// //           onChange={(handleOptionChange)}
+// //         >
+// //           {options.map((option, index) => (
+// //             <Radio key={index} value={option} my={1}>
+// //               {option}
+// //             </Radio>
+// //           ))}
+// //         </Radio.Group>
+// //       </VStack>
+// //       <Button 
+// //       mt={4} 
+// //       onPress={checkAnswer}
+// //       height={12}
+// //       backgroundColor={ isCorrect == null ? 'blue.500' : isCorrect ? "green.500" : "red.500"   }
+// //       > {isCorrect == null ? 'Conferir' : isCorrect ? "Correto" : "Incorreto"} </Button>
+// //       </Box>
+// //     )
+// // }
 
 // import React, { useState } from 'react';
 // import { View, Text, StyleSheet, Pressable, TouchableOpacity, Alert } from 'react-native';
@@ -216,8 +217,8 @@ const CardQuestion: React.FC<CardQuestionProps> = ({ question, options, answer, 
       ) : (
         <View style={styles.explanationContainer}>
           <Text style={styles.explanationText}>Explicação:</Text>
-          <Text style={styles.explanationText}>{explanation}</Text>
-        </View>
+          <Text style={styles.explanationText}>{explanation || 'Nenhuma explicação disponível'}</Text>
+          </View>
       )}
     </View>
   );

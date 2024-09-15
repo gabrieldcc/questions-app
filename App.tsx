@@ -94,7 +94,6 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
       <View style={styles.header}>
         <Text style={styles.heading}>Questões</Text>
       </View>
@@ -110,7 +109,6 @@ export default function App() {
           />
         )}
       />
-      </ScrollView>
     </SafeAreaView>
   );
 }
