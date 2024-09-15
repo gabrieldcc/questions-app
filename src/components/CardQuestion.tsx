@@ -172,8 +172,8 @@
 //   },
 // });
 
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useState, useRef } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, Animated } from 'react-native';
 
 interface CardQuestionProps {
   question: string;
@@ -186,15 +186,27 @@ const CardQuestion: React.FC<CardQuestionProps> = ({ question, options, answer, 
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [showExplanation, setShowExplanation] = useState(false);
 
+   // Valor de opacidade animado
+   const fadeAnim = useRef(new Animated.Value(0)).current
+
   const handleAnswerPress = (option: string) => {
     setSelectedAnswer(option);
 
     // Verifica se a resposta está correta e, se sim, mostra a explicação
     if (option === answer) {
       setShowExplanation(true);
-      console.log('setShowExplanation: TRUE')
+      fadeIn();
     }
   };
+
+    // Função de animação fade-in
+    const fadeIn = () => {
+      Animated.timing(fadeAnim, {
+        toValue: 1,   // Alvo da opacidade (1 = completamente visível)
+        duration: 500, // Duração da animação em milissegundos
+        useNativeDriver: true, // Melhor performance com o Native Driver
+      }).start();
+    };
 
   return (
     <View style={styles.card}>
@@ -209,16 +221,16 @@ const CardQuestion: React.FC<CardQuestionProps> = ({ question, options, answer, 
                 styles.optionButton,
                 selectedAnswer === option && styles.selectedOption
               ]}
-            >
+            > 
               <Text style={styles.optionText}>{option}</Text>
             </TouchableOpacity>
           ))}
         </>
       ) : (
-        <View style={styles.explanationContainer}>
+        <Animated.View style={[styles.explanationContainer, { opacity: fadeAnim }]}>
           <Text style={styles.explanationText}>Explicação:</Text>
-          <Text style={styles.explanationText}>{explanation || 'Nenhuma explicação disponível'}</Text>
-          </View>
+          <Text style={styles.explanationText}>{explanation}</Text>
+        </Animated.View>
       )}
     </View>
   );
