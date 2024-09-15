@@ -196,7 +196,12 @@ const CardQuestion: React.FC<CardQuestionProps> = ({ question, options, answer, 
     if (option === answer) {
       setShowExplanation(true);
       fadeIn();
-    }
+    } 
+  };
+
+  const handleExplanationPress = () => {
+      setShowExplanation(false);
+      fadeOut();
   };
 
     // Função de animação fade-in
@@ -207,6 +212,28 @@ const CardQuestion: React.FC<CardQuestionProps> = ({ question, options, answer, 
         useNativeDriver: true, // Melhor performance com o Native Driver
       }).start();
     };
+
+      // Função de animação fade-out
+  const fadeOut = () => {
+    Animated.timing(fadeAnim, {
+      toValue: 0, // Torna invisível
+      duration: 800,
+      useNativeDriver: true,
+    }).start();
+
+
+
+  };  
+
+      // Função para alternar entre pergunta e explicação
+  const handleCardPress = () => {
+    setShowExplanation(!showExplanation);
+    if (!showExplanation) {
+      fadeIn();
+    } else {
+      fadeOut();
+    }
+  };
 
   return (
     <View style={styles.card}>
@@ -227,10 +254,13 @@ const CardQuestion: React.FC<CardQuestionProps> = ({ question, options, answer, 
           ))}
         </>
       ) : (
+        <TouchableOpacity onPress={handleExplanationPress} activeOpacity={0.8}>
         <Animated.View style={[styles.explanationContainer, { opacity: fadeAnim }]}>
           <Text style={styles.explanationText}>Explicação:</Text>
           <Text style={styles.explanationText}>{explanation}</Text>
         </Animated.View>
+        </TouchableOpacity>
+
       )}
     </View>
   );
