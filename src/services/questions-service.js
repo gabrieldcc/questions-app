@@ -5,6 +5,8 @@ export async function fetchQuestions() {
         const response = await axios.get('https://questions-api-production.up.railway.app/questions');
         //console.log('Response JSON completo:', JSON.stringify(response.data, null, 2));
         //setQuestions(response.data);
+        console.log(`fetchQuestions success executed: ${JSON.stringify(response.data)}`)
+        console.log(`fetchQuestions status: ${response.status}`)
         return response.data
     } catch (error) {
         if (axios.isAxiosError(error)) {
