@@ -1,26 +1,36 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../routes';
+
 
 interface CardQuestionProps {
   question: string;
   options: string[];
   answer: string;
-  explanation: string; // Campo que trará a explicação
+  explanation: string; 
 }
 
-const CardQuestion: React.FC<CardQuestionProps> = ({ question, options, answer, explanation }) => {
+type CardQuestionScreenProp = NativeStackNavigationProp<RootStackParamList, 'Details'>;
+
+
+const CardQuestion: React.FC<CardQuestionProps> = ({ question, options, answer, explanation, }) => {
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [showExplanation, setShowExplanation] = useState(false);
+  const navigation = useNavigation<CardQuestionScreenProp>(); 
 
   const handleAnswerPress = (option: string) => {
     setSelectedAnswer(option);
 
     // Verifica se a resposta está correta e, se sim, mostra a explicação
     if (option === answer) {
-      setShowExplanation(true);
+      setShowExplanation(true)
+      navigation.navigate("Details", { explanation } )
     } else {
-      setShowExplanation(false);
+      setShowExplanation(false)
     }
+   
   };
 
   return (
@@ -45,14 +55,6 @@ const CardQuestion: React.FC<CardQuestionProps> = ({ question, options, answer, 
           </Text>
         </TouchableOpacity>
       ))}
-
-      {/* Exibe a explicação abaixo das opções se a resposta estiver correta */}
-      {showExplanation && (
-        <View style={styles.explanationContainer}>
-          <Text style={styles.explanationText}>Explicação:</Text>
-          <Text style={styles.explanationText}>{explanation}</Text>
-        </View>
-      )}
     </View>
   );
 };
@@ -77,28 +79,17 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   correctOption: {
-    backgroundColor: '#4CAF50', // Verde para resposta correta
+    backgroundColor: '#4CAF50',
   },
   incorrectOption: {
-    backgroundColor: '#F44336', // Vermelho para resposta incorreta
+    backgroundColor: '#F44336',
   },
   optionText: {
     fontSize: 16,
-    color: '#000', // Preto para texto em botões cinza
+    color: '#000', 
   },
   selectedOptionText: {
-    color: '#fff', // Branco para texto em botões de resposta correta ou incorreta
-  },
-  explanationContainer: {
-    marginTop: 10,
-    padding: 10,
-    backgroundColor: '#f0f0f0',
-    borderRadius: 5,
-  },
-  explanationText: {
-    fontSize: 16,
-    fontStyle: 'italic',
-    color: '#333',
+    color: '#fff', 
   },
 });
 
