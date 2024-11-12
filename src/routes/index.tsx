@@ -1,13 +1,10 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
 import Home from "./screens/Home";
 import Details from "./screens/Details";
 
-const Stack = createNativeStackNavigator();
-
-console.log('Routes been called')
+const Stack = createNativeStackNavigator<RootStackParamList>()
 
 export default function Routes() {
     return (
@@ -28,3 +25,9 @@ export default function Routes() {
 
     )
 }
+
+export type RootStackParamList = {
+    Home: undefined; 
+    Details: { explanation: string }; 
+  };
+
